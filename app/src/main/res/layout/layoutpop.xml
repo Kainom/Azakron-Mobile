@@ -1,0 +1,29 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:padding="8dp"
+    android:background="@drawable/pop_up_background"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content">
+
+    <TextView
+        android:id="@+id/optionCreateNote"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical"
+        android:text="Criar nota"
+        android:padding="12dp"
+        android:textColor="@android:color/white"
+        android:drawableStart="@drawable/pen"
+       android:drawablePadding="8dp" />
+
+    <TextView
+        android:id="@+id/optionCreateTag"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical"
+        android:text="Criar tag"
+        android:padding="12dp"
+        android:textColor="@android:color/white"
+        android:drawableStart="@drawable/tag"
+        android:drawablePadding="8dp" />
+</LinearLayout>

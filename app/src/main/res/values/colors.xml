@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Cores principais -->
+    <color name="primary">#FFB74D</color> <!-- Laranja suave para ações e destaques -->
+    <color name="background_light">#F5F5F5</color> <!-- Fundo neutro e relaxante -->
+    <color name="background_dark">#212121</color> <!-- Texto principal escuro ou fundo alternativo -->
+    <color name="inputPrimary">#1e293b80</color>
+
+    <!-- Textos -->
+    <color name="text_primary">#212121</color> <!-- Texto principal -->
+    <color name="text_secondary">#757575</color> <!-- Texto secundário / detalhes -->
+    <color name="text_hint">#999999</color> <!-- Placeholder ou dicas -->
+
+    <!-- Branco -->
+    <color name="white">#FFFFFF</color>
+
+    <!-- Cinza -->
+    <color name="gray_light">#E0E0E0</color> <!-- Para separadores ou cards -->
+
+    <!-- Categorias / memorização -->
+    <color name="category_blue">#4FC3F7</color> <!-- Categorias calmas -->
+    <color name="category_green">#81C784</color> <!-- Tarefas concluídas -->
+    <color name="category_red">#E57373</color> <!-- Tarefas urgentes -->
+</resources>
