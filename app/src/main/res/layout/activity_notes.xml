@@ -2,36 +2,53 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:background="@color/background_dark"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/background_dark"
     android:fitsSystemWindows="true"
-    tools:context=".Notes">
+    tools:context=".NotesActivity">
 
     <!-- Header -->
     <LinearLayout
         android:id="@+id/header"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
         android:orientation="vertical"
-        android:padding="16dp"
-        android:layout_alignParentTop="true">
+        android:padding="16dp">
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Minhas Notas"
-            android:textSize="24sp"
-            android:textStyle="bold"
-            android:textColor="@color/white" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Minhas Notas"
+                android:textColor="@color/white"
+                android:textSize="24sp"
+                android:textStyle="bold" />
+
+            <ImageButton
+                android:id="@+id/btnMenu"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:background="?attr/selectableItemBackgroundBorderless"
+                android:contentDescription="Menu"
+                android:src="@drawable/ic_more_vert"
+                app:tint="@color/white" />
+
+        </LinearLayout>
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="4dp"
             android:text="Organize suas ideias"
-            android:textSize="14sp"
-            android:textColor="@color/text_secondary" />
+            android:textColor="@color/text_secondary"
+            android:textSize="14sp" />
+
 
     </LinearLayout>
 
@@ -52,34 +69,34 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:gravity="center_vertical">
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
 
             <ImageView
                 android:layout_width="20dp"
                 android:layout_height="20dp"
                 android:layout_marginStart="12dp"
-                android:src="@android:drawable/ic_menu_search"
                 android:contentDescription="Buscar"
+                android:src="@android:drawable/ic_menu_search"
                 app:tint="@color/text_secondary" />
 
             <EditText
                 android:id="@+id/searchInput"
                 android:layout_width="0dp"
                 android:layout_height="42dp"
-                android:layout_weight="1"
                 android:layout_marginStart="10dp"
                 android:layout_marginEnd="4dp"
+                android:layout_weight="1"
                 android:background="@android:color/transparent"
                 android:hint="Buscar..."
-                android:textColorHint="@color/text_secondary"
-                android:textColor="@color/white"
-                android:textSize="14sp"
+                android:imeOptions="actionSearch"
+                android:inputType="text"
+                android:maxLines="1"
                 android:paddingTop="8dp"
                 android:paddingBottom="8dp"
-                android:inputType="text"
-                android:imeOptions="actionSearch"
-                android:maxLines="1" />
+                android:textColor="@color/white"
+                android:textColorHint="@color/text_secondary"
+                android:textSize="14sp" />
 
             <ImageButton
                 android:id="@+id/clearSearchButton"
@@ -87,11 +104,11 @@
                 android:layout_height="36dp"
                 android:layout_marginEnd="4dp"
                 android:background="?attr/selectableItemBackgroundBorderless"
-                android:src="@android:drawable/ic_menu_close_clear_cancel"
                 android:contentDescription="Limpar busca"
-                android:visibility="gone"
-                android:scaleType="centerInside"
                 android:padding="8dp"
+                android:scaleType="centerInside"
+                android:src="@android:drawable/ic_menu_close_clear_cancel"
+                android:visibility="gone"
                 app:tint="@color/text_secondary" />
 
         </LinearLayout>
@@ -103,13 +120,13 @@
         android:id="@+id/recyclerViewNotes"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@id/searchCard"
         android:layout_above="@id/buttonAddNote"
-        android:paddingTop="8dp"
-        android:paddingBottom="8dp"
-        android:paddingStart="16dp"
-        android:paddingEnd="16dp"
+        android:layout_below="@id/searchCard"
         android:clipToPadding="false"
+        android:paddingStart="16dp"
+        android:paddingTop="8dp"
+        android:paddingEnd="16dp"
+        android:paddingBottom="8dp"
         tools:listitem="@layout/item_note" />
 
     <!-- Mensagem quando não há resultados -->
@@ -118,15 +135,15 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
-        android:orientation="vertical"
         android:gravity="center"
+        android:orientation="vertical"
         android:visibility="gone">
 
         <ImageView
             android:layout_width="80dp"
             android:layout_height="80dp"
-            android:src="@android:drawable/ic_menu_search"
             android:alpha="0.3"
+            android:src="@android:drawable/ic_menu_search"
             app:tint="@color/text_secondary" />
 
         <TextView
@@ -134,8 +151,8 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
             android:text="Nenhuma nota encontrada"
-            android:textSize="16sp"
-            android:textColor="@color/text_secondary" />
+            android:textColor="@color/text_secondary"
+            android:textSize="16sp" />
 
     </LinearLayout>
 
@@ -151,4 +168,9 @@
         app:backgroundTint="@color/primary"
         app:srcCompat="@android:drawable/ic_input_add" />
 
+    <include
+        android:id="@+id/includeLoading"
+        layout="@layout/loading_overlay"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
 </RelativeLayout>

@@ -21,4 +21,5 @@
     <color name="category_blue">#4FC3F7</color> <!-- Categorias calmas -->
     <color name="category_green">#81C784</color> <!-- Tarefas concluídas -->
     <color name="category_red">#E57373</color> <!-- Tarefas urgentes -->
+    <color name="delete">#EEFF0000</color>
 </resources>

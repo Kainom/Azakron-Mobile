@@ -22,7 +22,7 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Minhas Notas"
+        android:text="@string/loginTitle"
         android:textSize="32sp"
         android:textStyle="bold"
         android:textColor="@color/white"
@@ -38,14 +38,13 @@
         android:gravity="center"
         android:layout_marginBottom="48dp" />
 
-    <!-- Card de Login -->
-    <com.google.android.material.card.MaterialCardView
+    <!-- Card de Login usando androidx.cardview -->
+    <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:cardBackgroundColor="#1E1E1E"
         app:cardCornerRadius="20dp"
-        app:cardElevation="0dp"
-        app:strokeWidth="0dp">
+        app:cardElevation="0dp">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -106,7 +105,7 @@
 
         </LinearLayout>
 
-    </com.google.android.material.card.MaterialCardView>
+    </androidx.cardview.widget.CardView>
 
     <!-- Informação de Privacidade -->
     <LinearLayout

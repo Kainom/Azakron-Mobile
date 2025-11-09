@@ -5,18 +5,16 @@ import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
 import androidx.appcompat.app.AppCompatActivity
-import com.example.azakron.LoginActivity
-import com.example.azakron.Notes
 
 class SplashActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        setContentView(R.layout.activity_splash)
 
-        // Verificar se usuário está logado após um pequeno delay
         Handler(Looper.getMainLooper()).postDelayed({
             checkUserSession()
-        }, 1000) // 1 segundo
+        }, 2000)
     }
 
     private fun checkUserSession() {
@@ -24,7 +22,7 @@ class SplashActivity : AppCompatActivity() {
         val isLoggedIn = prefs.getBoolean("is_logged_in", false)
 
         val intent = if (isLoggedIn) {
-            Intent(this, Notes::class.java)
+            Intent(this, NotesActivity::class.java)
         } else {
             Intent(this, LoginActivity::class.java)
         }

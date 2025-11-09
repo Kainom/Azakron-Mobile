@@ -7,7 +7,6 @@ import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import com.aniak.azakron.databinding.ActivityLoginBinding
-import com.example.azakron.Notes
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
@@ -20,7 +19,8 @@ class LoginActivity : AppCompatActivity() {
     private lateinit var binding: ActivityLoginBinding
     private lateinit var googleSignInClient: GoogleSignInClient
 
-    // Launcher para o resultado do Google Sign-In
+    private val WEB_CLIENT_ID = "814608088595-44g0d9aftqbas5e8ed016mrcb54qiopv.apps.googleusercontent.com"
+
     private val googleSignInLauncher = registerForActivityResult(
         ActivityResultContracts.StartActivityForResult()
     ) { result ->
@@ -31,7 +31,6 @@ class LoginActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        // Verificar se usuário já está logado
         if (isUserLoggedIn()) {
             navigateToNotes()
             return
@@ -45,12 +44,10 @@ class LoginActivity : AppCompatActivity() {
     }
 
     private fun setupGoogleSignIn() {
-        // Configure o Google Sign-In
         val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
             .requestEmail()
             .requestProfile()
-            // Adicione seu Web Client ID aqui do Firebase Console
-            // .requestIdToken("YOUR_WEB_CLIENT_ID")
+            .requestIdToken(WEB_CLIENT_ID) // Usa o Web Client ID
             .build()
 
         googleSignInClient = GoogleSignIn.getClient(this, gso)
@@ -63,11 +60,9 @@ class LoginActivity : AppCompatActivity() {
     }
 
     private fun signInWithGoogle() {
-        // Mostrar loading
         binding.progressBar.visibility = View.VISIBLE
         binding.btnGoogleLogin.isEnabled = false
 
-        // Limpar conta anterior para forçar seleção de conta
         googleSignInClient.signOut().addOnCompleteListener {
             val signInIntent = googleSignInClient.signInIntent
             googleSignInLauncher.launch(signInIntent)
@@ -77,8 +72,6 @@ class LoginActivity : AppCompatActivity() {
     private fun handleSignInResult(completedTask: Task<GoogleSignInAccount>) {
         try {
             val account = completedTask.getResult(ApiException::class.java)
-
-            // Login bem-sucedido
             saveUserSession(account)
 
             Toast.makeText(
@@ -90,23 +83,17 @@ class LoginActivity : AppCompatActivity() {
             navigateToNotes()
 
         } catch (e: ApiException) {
-            // Falha no login
             binding.progressBar.visibility = View.GONE
             binding.btnGoogleLogin.isEnabled = true
 
-            when (e.statusCode) {
-                12501 -> {
-                    // Usuário cancelou o login
-                    Toast.makeText(this, "Login cancelado", Toast.LENGTH_SHORT).show()
-                }
-                else -> {
-                    Toast.makeText(
-                        this,
-                        "Erro ao fazer login: ${e.message}",
-                        Toast.LENGTH_SHORT
-                    ).show()
-                }
+            val errorMessage = when (e.statusCode) {
+                10 -> "Erro de configuração. Verifique SHA-1 e Client ID"
+                12501 -> "Login cancelado"
+                7 -> "Sem conexão com a internet"
+                else -> "Erro ao fazer login: ${e.statusCode}"
             }
+
+            Toast.makeText(this, errorMessage, Toast.LENGTH_LONG).show()
         }
     }
 
@@ -128,23 +115,9 @@ class LoginActivity : AppCompatActivity() {
     }
 
     private fun navigateToNotes() {
-        val intent = Intent(this, Notes::class.java)
+        val intent = Intent(this, NotesActivity::class.java)
         intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
         startActivity(intent)
         finish()
     }
 }
-
-// Adicione este companion object na sua Notes Activity para fazer logout
-/*
-companion object {
-    fun logout(context: Context) {
-        val prefs = context.getSharedPreferences("user_session", Context.MODE_PRIVATE)
-        prefs.edit().clear().apply()
-
-        val intent = Intent(context, LoginActivity::class.java)
-        intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
-        context.startActivity(intent)
-    }
-}
-*/
