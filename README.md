@@ -31,7 +31,7 @@ To get a local copy up and running, follow these simple steps.
 
 1.  **Clone the repo**
     ```sh
-    git clone https://github.com/your_username_/Project.git
+    git clone https://github.com/Kainom/Azakron-Mobile.git
     ```
 2.  **Open in Android Studio**
     *   Open Android Studio and select `Open an Existing Project`.
